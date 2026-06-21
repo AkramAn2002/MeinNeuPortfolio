@@ -1,4 +1,4 @@
-import img1 from "../assets/projects/Chatapp.png";
+import img1 from "../assets/projects/chatapp.png";
 import img2 from "../assets/projects/comfystore.png";
 import img3 from "../assets/projects/flightsimulation.png";
 
