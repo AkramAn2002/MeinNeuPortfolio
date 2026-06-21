@@ -1,6 +1,6 @@
 import React from "react";
 import TimelineItem from "../components/TimelineItem";
-import { timelineData } from "../data/timelineData";
+import { timelineData } from "../data/timelinedata";
 
 const Timeline = () => {
   return (

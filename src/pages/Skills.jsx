@@ -1,7 +1,7 @@
 import React from "react";
 
 import MainStack from "../components/MainStack";
-import { skills } from "../data/SkillsData";
+import { skills } from "../data/skillsdata";
 
 const Skills = () => {
   return (
