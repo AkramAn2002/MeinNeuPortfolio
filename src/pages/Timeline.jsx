@@ -1,69 +1,48 @@
 import React from "react";
-import { motion } from "framer-motion";
+import TimelineItem from "../components/TimelineItem";
+import { timelineData } from "../data/timelinedata";
 
-/**
- * Mobile  (< md): left-edge rail, every card to its right.
- * Desktop (>= md): centered rail, cards alternate sides.
- * Pairs with the rail in Timeline.jsx (left-[7px] md:left-1/2).
- */
-const TimelineItem = ({ item, index }) => {
-  const isLeft = index % 2 === 0;
-
+const Timeline = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
-      viewport={{ once: true, amount: 0.25 }}
-      className={`
-        relative flex items-center
-        pl-10 md:pl-0
-        ${isLeft ? "md:justify-start" : "md:justify-end"}
-      `}
+    <section
+      id="timeline"
+      className="relative w-full px-5 sm:px-8 lg:px-20 py-20 sm:py-28 lg:py-32 overflow-hidden"
     >
-      {/* CARD */}
-      <div
-        className="
-          w-full md:w-[45%]
-          bg-[#141414]/80
-          backdrop-blur-xl
-          border border-white/10
-          rounded-[20px] sm:rounded-[30px]
-          p-5 sm:p-7 lg:p-8
-          shadow-2xl
-          md:hover:-translate-y-2
-          md:hover:shadow-[#8b1e3f]/20
-          duration-500
-        "
-      >
-        <span className="text-[#8b1e3f] text-[11px] sm:text-sm tracking-[3px] sm:tracking-[4px] uppercase">
-          {item.year}
-        </span>
-
-        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mt-2 sm:mt-3 mb-3 sm:mb-4">
-          {item.title}
-        </h3>
-
-        <p className="text-gray-400 text-[13px] sm:text-[15px] leading-7 sm:leading-8">
-          {item.description}
+      {/* TITLE */}
+      <div className="text-center mb-14 sm:mb-20 lg:mb-24">
+        <p className="uppercase tracking-[4px] sm:tracking-[6px] text-xs sm:text-sm text-[#8b1e3f] mb-3 sm:mb-4">
+          Journey
         </p>
+
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold">
+          Experience & Education
+        </h2>
       </div>
 
-      {/* DOT — sits on the rail at both breakpoints */}
-      <div
-        className="
-          absolute
-          left-0 md:left-1/2
-          md:-translate-x-1/2
-          w-4 h-4 sm:w-5 sm:h-5
-          bg-[#8b1e3f]
-          rounded-full
-          border-[3px] sm:border-4 border-black
-          shadow-lg shadow-[#8b1e3f]/40
-        "
-      />
-    </motion.div>
+      {/* TIMELINE */}
+      <div className="relative max-w-6xl mx-auto">
+        {/* RAIL — left edge on mobile, centered from md up */}
+        <div
+          className="
+            absolute top-0 h-full w-[2px] md:w-[3px]
+            left-[7px] md:left-1/2
+            md:-translate-x-1/2
+            bg-gradient-to-b
+            from-transparent
+            via-[#8b1e3f]
+            to-transparent
+          "
+        />
+
+        {/* ITEMS */}
+        <div className="flex flex-col gap-12 sm:gap-16 md:gap-24">
+          {timelineData.map((item, index) => (
+            <TimelineItem key={index} item={item} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
-export default TimelineItem;
+export default Timeline;
