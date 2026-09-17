@@ -64,7 +64,7 @@ const Field = ({ field, value, onChange }) => {
           <Icon size={14} />
         </div>
 
-        {/* Input */}
+        {/* Input — 16px on mobile stops iOS from zooming on focus */}
         <input
           type={field.type}
           name={field.name}
@@ -73,7 +73,7 @@ const Field = ({ field, value, onChange }) => {
           onChange={onChange}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className="w-full bg-transparent outline-none pt-5 pb-2 pl-10 pr-4 text-[14px] text-white/90"
+          className="w-full bg-transparent outline-none pt-5 pb-2 pl-10 pr-4 text-[16px] sm:text-[14px] text-white/90"
           style={{ caretColor: ACCENT }}
         />
 
@@ -116,9 +116,6 @@ const ContactPage = () => {
     e.preventDefault();
     setSending(true);
 
-    emailjs;
-    emailjs;
-    emailjs;
     emailjs
       .sendForm("xxxxx", "xxxxx", form.current, { publicKey: "xxxxx" })
       .then(() => {
@@ -152,18 +149,18 @@ const ContactPage = () => {
     },
   };
 
+  const msgActive = msgFocused || values.message;
+
   return (
     <section
       id="contact"
-      className="relative min-h-screen px-6 lg:px-20 py-32 overflow-hidden"
+      className="relative w-full px-5 sm:px-8 lg:px-20 py-20 sm:py-28 lg:py-32 overflow-hidden"
     >
       {/* ── Ambient glow ── */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <div
+          className="absolute w-[min(700px,150vw)] h-[min(700px,150vw)]"
           style={{
-            position: "absolute",
-            width: 700,
-            height: 700,
             borderRadius: "50%",
             background: `radial-gradient(circle, ${ACCENT}14 0%, transparent 65%)`,
             top: "50%",
@@ -181,22 +178,23 @@ const ContactPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.25, 1, 0.3, 1] }}
-          className="mb-20"
+          className="mb-12 sm:mb-16 lg:mb-20"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-10" style={{ background: ACCENT }} />
+            <div className="h-px w-8 sm:w-10" style={{ background: ACCENT }} />
             <span
-              className="text-[11px] font-semibold tracking-[5px] uppercase"
+              className="text-[10px] sm:text-[11px] font-semibold tracking-[4px] sm:tracking-[5px] uppercase"
               style={{ color: ACCENT }}
             >
               Get in touch
             </span>
           </div>
+
           <motion.h1
             variants={itemVariants}
-            className="leading-none mb-8"
+            className="leading-none"
             style={{
-              fontSize: "clamp(3.5rem, 7vw, 6.5rem)",
+              fontSize: "clamp(2.75rem, 11vw, 6.5rem)",
               fontWeight: 300,
               letterSpacing: "-0.04em",
               fontFamily:
@@ -221,22 +219,22 @@ const ContactPage = () => {
         </motion.div>
 
         {/* ── Grid ── */}
-        <div className="grid lg:grid-cols-[1fr_1.6fr] gap-16">
+        <div className="grid lg:grid-cols-[1fr_1.6fr] gap-10 sm:gap-12 lg:gap-16">
           {/* ── LEFT INFO PANEL ── */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="space-y-10"
+            className="space-y-7 sm:space-y-10"
           >
             <motion.p
               variants={itemVariants}
-              className="text-[15px] leading-[1.9]"
+              className="text-[14px] sm:text-[15px] leading-[1.8] sm:leading-[1.9]"
               style={{ color: "rgba(255,255,255,0.4)" }}
             >
               Have a project in mind or want to collaborate? Feel free to reach
-              out — I'm always open to discussing new opportunities.
+              out —— I'm always open to discussing new opportunities.
             </motion.p>
 
             {/* Info cards */}
@@ -254,10 +252,10 @@ const ContactPage = () => {
                 <motion.div
                   key={i}
                   variants={itemVariants}
-                  className="flex items-center gap-5 group"
+                  className="flex items-center gap-4 sm:gap-5 group"
                 >
                   <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-300"
+                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-300"
                     style={{
                       background: `${ACCENT}14`,
                       border: `1px solid ${ACCENT}30`,
@@ -265,15 +263,15 @@ const ContactPage = () => {
                   >
                     <Icon size={16} style={{ color: ACCENT }} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p
-                      className="text-[11px] font-semibold uppercase tracking-widest mb-0.5"
+                      className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest mb-0.5"
                       style={{ color: "rgba(255,255,255,0.25)" }}
                     >
                       {info.title}
                     </p>
                     <p
-                      className="text-[14px] font-medium"
+                      className="text-[13px] sm:text-[14px] font-medium break-all"
                       style={{ color: "rgba(255,255,255,0.75)" }}
                     >
                       {info.value}
@@ -330,7 +328,7 @@ const ContactPage = () => {
             transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 1, 0.3, 1] }}
           >
             <div
-              className="rounded-[28px] p-8 lg:p-10"
+              className="rounded-[22px] sm:rounded-[28px] p-5 sm:p-8 lg:p-10"
               style={{
                 background: "rgba(255,255,255,0.025)",
                 border: "1px solid rgba(255,255,255,0.07)",
@@ -355,11 +353,8 @@ const ContactPage = () => {
                   className="relative rounded-2xl overflow-hidden transition-all duration-300"
                   style={{
                     background: "rgba(255,255,255,0.03)",
-                    border: `1px solid ${msgFocused || values.message ? ACCENT : "rgba(255,255,255,0.08)"}`,
-                    boxShadow:
-                      msgFocused || values.message
-                        ? `0 0 0 3px ${ACCENT}18`
-                        : "none",
+                    border: `1px solid ${msgActive ? ACCENT : "rgba(255,255,255,0.08)"}`,
+                    boxShadow: msgActive ? `0 0 0 3px ${ACCENT}18` : "none",
                   }}
                 >
                   <textarea
@@ -370,22 +365,17 @@ const ContactPage = () => {
                     onChange={handleChange("message")}
                     onFocus={() => setMsgFocused(true)}
                     onBlur={() => setMsgFocused(false)}
-                    className="w-full bg-transparent outline-none resize-none pt-7 pb-3 px-4 text-[14px] text-white/90"
+                    className="w-full bg-transparent outline-none resize-none pt-7 pb-3 px-4 text-[16px] sm:text-[14px] text-white/90"
                     style={{ caretColor: ACCENT }}
                   />
                   <label
                     className="absolute left-4 pointer-events-none font-medium transition-all duration-200"
                     style={{
-                      fontSize: msgFocused || values.message ? "10px" : "13px",
-                      top: msgFocused || values.message ? "8px" : "16px",
-                      color:
-                        msgFocused || values.message
-                          ? ACCENT
-                          : "rgba(255,255,255,0.3)",
-                      letterSpacing:
-                        msgFocused || values.message ? "0.06em" : "0",
-                      textTransform:
-                        msgFocused || values.message ? "uppercase" : "none",
+                      fontSize: msgActive ? "10px" : "13px",
+                      top: msgActive ? "8px" : "16px",
+                      color: msgActive ? ACCENT : "rgba(255,255,255,0.3)",
+                      letterSpacing: msgActive ? "0.06em" : "0",
+                      textTransform: msgActive ? "uppercase" : "none",
                     }}
                   >
                     Your Message
@@ -408,8 +398,8 @@ const ContactPage = () => {
                     }}
                   >
                     {status === "success"
-                      ? "✓ Message sent successfully!"
-                      : "✗ Something went wrong. Please contact me directly."}
+                      ? "Message sent. I'll get back to you soon."
+                      : "Sending failed. Email me directly at aanou.akram@gmail.com."}
                   </motion.div>
                 )}
 
@@ -419,7 +409,7 @@ const ContactPage = () => {
                   disabled={sending}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 rounded-2xl font-semibold text-[14px] tracking-wide transition-all duration-300 relative overflow-hidden"
+                  className="w-full py-4 rounded-2xl font-semibold tracking-wide transition-all duration-300 relative overflow-hidden"
                   style={{
                     background: sending
                       ? "rgba(139,30,63,0.5)"
@@ -456,7 +446,7 @@ const ContactPage = () => {
                       Sending…
                     </span>
                   ) : (
-                    "Send Message →"
+                    "Send message"
                   )}
                 </motion.button>
               </form>
